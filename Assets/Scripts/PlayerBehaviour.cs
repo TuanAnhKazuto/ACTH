@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -26,6 +26,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Map 3")
+        {
+            Debug.Log("Player is in Map 3");
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+
+            Vector2 movement = new Vector2(horizontalInput, verticalInput) * Time.deltaTime * 5f;
+            transform.Translate(movement, Space.World);
+        }
         // Kiểm tra chạm đất
         if (groundCheck != null)
         {
@@ -34,13 +43,17 @@ public class PlayerController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Map 2")
         {
-            HandleMap2();
+            HandleMap2(); 
         }
-    }
+        if (SceneManager.GetActiveScene().name == "Map 1")
+        {
+            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            if (Input.GetMouseButtonDown(0)) 
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
 
-    void FixedUpdate()
-    {
-        
+        }
     }
 
     void HandleMap2()
