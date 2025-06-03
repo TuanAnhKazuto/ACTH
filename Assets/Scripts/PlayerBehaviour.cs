@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         if (SceneManager.GetActiveScene().name == "Map 3")
         {
             Debug.Log("Player is in Map 3");
@@ -44,7 +43,16 @@ public class PlayerController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Map 2")
         {
-            HandleMap2();
+            HandleMap2(); 
+        }
+        if (SceneManager.GetActiveScene().name == "Map 1")
+        {
+            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            if (Input.GetMouseButtonDown(0)) 
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+
         }
     }
 
